@@ -42,7 +42,7 @@ $conn = createDBConnection();
         <p>A simple form to create new database entries.</p>
         <div class="app-container">
             <div class="create-container">
-                <form id="input-form" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" ) method="POST">
+                <form id="input-form" action="<?= './processCreate.php' ?>" ) method="POST">
                     <div class="form-group">
                         <label for="fname">First Name</label>
                         <input type="text" id="fname" name="fname" required>

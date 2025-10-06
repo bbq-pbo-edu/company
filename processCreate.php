@@ -16,3 +16,7 @@ $stmt->bindParam(":lname", $lname);
 
 // Execute and send statement to database
 $stmt->execute();
+
+// Return back to main page
+// TODO: Fix returning to main page when processCreate finished
+header("Location: /");
