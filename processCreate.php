@@ -19,4 +19,4 @@ $stmt->execute();
 
 // Return back to main page
 // TODO: Fix returning to main page when processCreate finished
-header("Location: /");
+header("Location: ./");

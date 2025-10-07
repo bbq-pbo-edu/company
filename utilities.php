@@ -21,21 +21,34 @@ function createTable(array $data, array|false $ueberschriften = false, string $f
     }
 
     foreach ($data as $index => $dataSet) {
+        $_GET['id'] = $_GET['id'] ?? 0;
+        $_GET['fname'] = $_GET['fname'] ?? '';
+        $_GET['lname'] = $_GET['lname'] ?? '';
+
+        $id = $dataSet['id'];
+        $fname = $dataSet['fname'];
+        $lname = $dataSet['lname'];
+
         $htmlString .= "<tr>";
+
+        $isEntryUpdateHidden = $id == $_GET['id'] && $_GET['process'] == 'update' ? '' : 'hidden';
+        $isEntryHidden = $isEntryUpdateHidden == 'hidden' ? '' : 'hidden';
+
         $colorStyleTag = "style=\"background-color: " . ($index % 2 == 0 ? $farbe_1 : $farbe_2) . ";\"";
 
         foreach ($dataSet as $key => $value) {
             if ($key === 'ip') {
-                $htmlString .= "<td $colorStyleTag><a href=\"http://$value\" target=\"_blank\">$value</a></td>";
+                $htmlString .= "<td $colorStyleTag $isEntryHidden><a href=\"http://$value\" target=\"_blank\">$value</a></td>";
             } else {
-                $htmlString .= "<td $colorStyleTag>$value</td>";
+                $htmlString .= "<td $colorStyleTag $isEntryHidden>$value</td>";
             }
         }
 
-        $id = $dataSet['id'];
-        $htmlString .= "<td><a href=\"./processDelete.php?id={$id}\">Delete</a></td>";
-        $htmlString .= "<td><a href=\"./processUpdate.php?id={$id}\">Update</a></td>";
+        $htmlString .= "<td $colorStyleTag $isEntryHidden><a href=\"./processDelete.php?id={$id}\">Delete</a></td>";
+        $htmlString .= "<td $colorStyleTag $isEntryHidden><a href=\"./index.php?id={$id}&process=update\">Update</a></td>";
         $htmlString .= "</tr>";
+
+        $htmlString .= "<tr $isEntryUpdateHidden><form action='./processUpdate.php' method='POST'><td  $colorStyleTag >{$id}<input type='hidden' name='id' value='{$id}'></td><td $colorStyleTag><input type='text' name='fname' value='{$fname}' required></td><td><input type='text' name='lname' value='{$lname}' required><td $colorStyleTag><input type='submit' value='submit'></td><td $colorStyleTag><input type='submit' formaction='./processCancel.php' value='Cancel'></td></form></tr>";
     }
 
     $htmlString .= "</table>";
