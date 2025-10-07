@@ -10,7 +10,7 @@ function createDBConnection(string $host='localhost', string $user='phpstorm', $
     }
 }
 
-function createTable(array $data, array|false $ueberschriften = false, string $farbe_1 = '#f9fafb', string $farbe_2 = '#ccd4db'): string
+function createEmployeesTable(array $data, array|false $ueberschriften = false, string $farbe_1 = '#f9fafb', string $farbe_2 = '#ccd4db'): string
 {
     $htmlString = "<table>";
 
@@ -56,9 +56,49 @@ function createTable(array $data, array|false $ueberschriften = false, string $f
     return $htmlString;
 }
 
-function displayTable(PDO $dbConnection): string {
-    $stmt = $dbConnection->prepare("SELECT * FROM employees");
+function createDepartmentTable(array $data, array|false $ueberschriften = false, string $farbe_1 = '#f9fafb', string $farbe_2 = '#ccd4db'): string {
+    $htmlString = "<table>";
+
+    if ($ueberschriften) {
+        foreach ($ueberschriften as $ueberschrift => $value) {
+            $htmlString .= "<th>$ueberschrift</th>";
+        }
+    }
+
+    foreach ($data as $index => $dataSet) {
+        $_GET['id'] = $_GET['id'] ?? 0;
+        $_GET['name'] = $_GET['name'] ?? '';
+
+        $id = $dataSet['id'];
+        $name = $dataSet['name'];
+
+        $htmlString .= "<tr>";
+
+        $isEntryUpdateHidden = $id == $_GET['id'] && $_GET['process'] == 'update' ? '' : 'hidden';
+        $isEntryHidden = $isEntryUpdateHidden == 'hidden' ? '' : 'hidden';
+
+        $colorStyleTag = "style=\"background-color: " . ($index % 2 == 0 ? $farbe_1 : $farbe_2) . ";\"";
+
+        foreach ($dataSet as $key => $value) {
+            $htmlString .= "<td $colorStyleTag $isEntryHidden>$value</td>";
+        }
+
+        $htmlString .= "<td $colorStyleTag $isEntryHidden><a href=\"./processDelete.php?id={$id}\">Delete</a></td>";
+        $htmlString .= "<td $colorStyleTag $isEntryHidden><a href=\"./index.php?id={$id}&process=update\">Update</a></td>";
+        $htmlString .= "</tr>";
+
+        $htmlString .= "<tr $isEntryUpdateHidden><form action='./processUpdate.php' method='POST'><td  $colorStyleTag>{$id}<input type='hidden' name='id' value='{$id}'></td><td $colorStyleTag><input type='text' name='name' value='{$name}' required></td><td $colorStyleTag><input type='submit' value='submit'></td><td $colorStyleTag><input type='submit' formaction='./processCancel.php' value='Cancel'></td></form></tr>";
+    }
+
+    $htmlString .= "</table>";
+
+    return $htmlString;
+}
+
+function displayTable(PDO $dbConnection, string $tableName): string {
+    $stmt = $dbConnection->prepare("SELECT * FROM {$tableName}");
     $stmt->execute();
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return createTable($data, $data[0]);
+
+    return $tableName == 'employees' ? createEmployeesTable($data, $data[0]) : createDepartmentTable($data, $data[0]);
 }

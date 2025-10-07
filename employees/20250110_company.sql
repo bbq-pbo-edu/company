@@ -1,7 +1,6 @@
-DROP DATABASE IF EXISTS company;
-CREATE DATABASE company;
 USE company;
 
+DROP TABLE IF EXISTS employees;
 CREATE TABLE employees
 (
     id      INT AUTO_INCREMENT PRIMARY KEY,

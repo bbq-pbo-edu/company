@@ -1,3 +1,10 @@
+<?php
+
+require_once "../utilities.php";
+$conn = createDBConnection();
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -31,14 +38,23 @@
         </div>
     </nav>
     <main>
-        <h1>Database Project</h1>
-        <p>A simple web application to showcase database interaction.</p>
+        <h1>Database Project - Departments View</h1>
+        <p>Departments View.</p>
         <div class="app-container">
-            <div class="choose-table-container">
-                <a href="http://www.company.patrick.web.bbq/employees"><button type="button">Show Employees</button></a>
-                <a href ="http://www.company.patrick.web.bbq/department"><button type="button">Show Departments</button></a>
+            <div class="create-container">
+                <form id="input-form" action="<?= './processCreate.php' ?>" method="POST">
+                    <div class="form-group">
+                        <label for="name">Department Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <button type="submit" form="input-form">Send to Database</button>
+                </form>
+            </div>
+            <div class="table-container">
+                <?= displayTable($conn, 'department') ?>
             </div>
         </div>
+
     </main>
 </div>
 </body>

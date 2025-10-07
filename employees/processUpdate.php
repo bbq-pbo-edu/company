@@ -1,13 +1,11 @@
 <?php
 
-require_once "./utilities.php";
+require_once "../utilities.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
-
-    var_dump($id, $fname, $lname);
 
     $conn = createDBConnection();
     $stmt = $conn->prepare("UPDATE employees SET fname = :fname, lname = :lname WHERE id = :id");

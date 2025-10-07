@@ -1,3 +1,10 @@
+<?php
+
+require_once "../utilities.php";
+$conn = createDBConnection();
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,7 +13,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../style.css">
-    <title>Database Project</title>
+    <title>Database Project - Employees View</title>
 </head>
 <body>
 <div class="container">
@@ -31,14 +38,27 @@
         </div>
     </nav>
     <main>
-        <h1>Database Project</h1>
-        <p>A simple web application to showcase database interaction.</p>
+        <h1>Database Project - Employees View</h1>
+        <p>Employees View.</p>
         <div class="app-container">
-            <div class="choose-table-container">
-                <a href="http://www.company.patrick.web.bbq/employees"><button type="button">Show Employees</button></a>
-                <a href ="http://www.company.patrick.web.bbq/department"><button type="button">Show Departments</button></a>
+            <div class="create-container">
+                <form id="input-form" action="<?= './processCreate.php' ?>" ) method="POST">
+                    <div class="form-group">
+                        <label for="fname">First Name</label>
+                        <input type="text" id="fname" name="fname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lname">Last Name</label>
+                        <input type="text" id="lname" name="lname" required>
+                    </div>
+                    <button type="submit" form="input-form">Send to Database</button>
+                </form>
+            </div>
+            <div class="table-container">
+                <?= displayTable($conn, 'employees') ?>
             </div>
         </div>
+
     </main>
 </div>
 </body>
