@@ -39,7 +39,7 @@ $conn = createDBConnection();
     </nav>
     <main>
         <h1>Database Project - Departments View</h1>
-        <p>Departments View.</p>
+        <p><a href="http://www.company.patrick.web.bbq">Go back</a></p>
         <div class="app-container">
             <div class="create-container">
                 <form id="input-form" action="<?= './processCreate.php' ?>" method="POST">
