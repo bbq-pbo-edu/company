@@ -69,13 +69,22 @@ function createDepartmentTable(array $data, array|false $ueberschriften = false,
         $_GET['id'] = $_GET['id'] ?? 0;
         $_GET['name'] = $_GET['name'] ?? '';
 
+        $process = $_GET['process'] ?? '';
         $id = $dataSet['id'];
         $name = $dataSet['name'];
+        $isHiring = $dataSet['is_hiring'];
+        $workMode = $dataSet['work_mode'];
 
         $htmlString .= "<tr>";
 
-        $isEntryUpdateHidden = $id == $_GET['id'] && $_GET['process'] == 'update' ? '' : 'hidden';
+
+        $isEntryUpdateHidden = $id == $_GET['id'] && $process == 'update' ? '' : 'hidden';
         $isEntryHidden = $isEntryUpdateHidden == 'hidden' ? '' : 'hidden';
+
+        $isHiringChecked = $process == 'update' && $isHiring != 0 ? 'checked' : '';
+        $isRemoteChecked = $process == 'update' && $workMode == 'remote' ? 'checked' : '';
+        $isHybridChecked = $process == 'update' && $workMode == 'hybrid' ? 'checked' : '';
+        $isOnsiteChecked = $process == 'update' && $workMode == 'onsite' ? 'checked' : '';
 
         $colorStyleTag = "style=\"background-color: " . ($index % 2 == 0 ? $farbe_1 : $farbe_2) . ";\"";
 
@@ -87,7 +96,7 @@ function createDepartmentTable(array $data, array|false $ueberschriften = false,
         $htmlString .= "<td $colorStyleTag $isEntryHidden><a href=\"./index.php?id={$id}&process=update\">Update</a></td>";
         $htmlString .= "</tr>";
 
-        $htmlString .= "<tr $isEntryUpdateHidden><form action='./processUpdate.php' method='POST'><td  $colorStyleTag>{$id}<input type='hidden' name='id' value='{$id}'></td><td $colorStyleTag><input type='text' name='name' value='{$name}' required></td><td $colorStyleTag><input type='submit' value='submit'></td><td $colorStyleTag><input type='submit' formaction='./processCancel.php' value='Cancel'></td></form></tr>";
+        $htmlString .= "<tr $isEntryUpdateHidden><form action='./processUpdate.php' method='POST'><td  $colorStyleTag>{$id}<input type='hidden' name='id' value='{$id}'></td><td $colorStyleTag><input type='text' name='name' value='{$name}' required></td><td $colorStyleTag><input type='checkbox' id='is-hiring' name='is-hiring' $isHiringChecked><label for='is-hiring'>Is Hiring?</label></td><td><input type='radio' id='remote' name='work-mode' value='remote' $isRemoteChecked><label for='remote'>Remote</label><input type='radio' id='hybrid' name='work-mode' value='hybrid' $isHybridChecked><label for='hybrid'>Hybrid</label><input type='radio' id='onsite' name='work-mode' value='onsite' $isOnsiteChecked><label for='onsite'>Onsite</label></td><td $colorStyleTag><input type='submit' value='submit'></td><td $colorStyleTag><input type='submit' formaction='./processCancel.php' value='Cancel'></td></form></tr>";
     }
 
     $htmlString .= "</table>";

@@ -10,3 +10,4 @@ $stmt->bindParam(':id', $id);
 $stmt->execute();
 
 header("Location: ./");
+exit();

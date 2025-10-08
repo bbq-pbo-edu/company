@@ -47,6 +47,18 @@ $conn = createDBConnection();
                         <label for="name">Department Name</label>
                         <input type="text" id="name" name="name" required>
                     </div>
+                    <div class="form-group">
+                        <label for="is-hiring">Is Hiring?</label>
+                        <input type="checkbox" id="is-hiring" name="is-hiring">
+                    </div>
+                    <div class="form-group">
+                        <label for="remote">Remote</label>
+                        <input type="radio" id="remote" name="work-mode" value="remote">
+                        <label for="hybrid">Hybrid</label>
+                        <input type="radio" id="hybrid" name="work-mode" value="hybrid">
+                        <label for="onsite">Onsite</label>
+                        <input type="radio" id="onsite" name="work-mode" value="onsite">
+                    </div>
                     <button type="submit" form="input-form">Send to Database</button>
                 </form>
             </div>
