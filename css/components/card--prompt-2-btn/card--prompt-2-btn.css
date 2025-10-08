@@ -1,0 +1,13 @@
+.button {
+    width: 100%;
+}
+
+.card__title {
+    text-align: center;
+}
+
+.card__body {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
