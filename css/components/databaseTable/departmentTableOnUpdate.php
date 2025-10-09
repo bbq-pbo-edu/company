@@ -15,8 +15,6 @@
     <title>Database Table Demo</title>
 </head>
 <body>
-<a href="#last-row" hidden>Last Row</a>
-
 <div class="table">
     <table class="table__content">
         <tr class="table-row__table-header">
@@ -263,7 +261,7 @@
                 </td>
             </form>
         </tr>
-        <tr class="table__row" $isEntryUpdateHidden id="last-row">
+        <tr class="table__row" $isEntryUpdateHidden>
             <form class="form__update-table" action='./processUpdate.php' method='POST'>
                 <td $colorStyleTag>
                     <div class="text-input">
