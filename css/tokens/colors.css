@@ -1,8 +1,10 @@
 /* PRIMITIVES */
 :root {
-    --color-slate-900: #F3F4F6;
+    --color-slate-800: hsl(220, 14%, 80%);
+    --color-slate-900: #f3f4f6;
     --color-slate-950: #FBFBFB;
     --color-slate-1000: #FFFFFF;
+    --color-slate-980: #F9FAFB;
 
     --color-navy-100: #1F2937;
     --color-navy-200: #2C3E50;

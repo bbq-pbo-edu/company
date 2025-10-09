@@ -1,0 +1,115 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--color-navy-200);
+    background-clip: content-box;
+    border-bottom: 709px solid transparent;
+    border-top-right-radius: 8px;
+}
+
+::-webkit-scrollbar-track-piece {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--color-mint-500);
+    background-clip: content-box;
+    border-top: 50px solid transparent;
+    border-bottom-right-radius: 9999px;
+    border-top-right-radius: 9999px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-mint-600);
+    background-clip: content-box;
+    border-top: 50px solid transparent;
+    cursor: grab;
+}
+
+::-webkit-scrollbar-thumb:active {
+    cursor: grabbing;
+}
+
+body {
+    background-color: var(--color-slate-900);
+}
+
+.table {
+    overflow: auto;
+    scroll-behavior: smooth;
+    margin: 5rem;
+}
+
+.table__content {
+    font-family: sans-serif;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table-header__entry {
+    background-color: var(--color-navy-200);
+    padding: 1rem 5rem 1rem 1rem;
+    text-align: left;
+}
+
+.table-header__entry:first-child {
+    border-top-left-radius: 8px;
+}
+
+.table-header__entry:last-child {
+    /*border-top-right-radius: 8px;*/
+}
+
+.table-row__table-header {
+    color: var(--color-slate-1000);
+    background-color: var(--color-navy-200);
+    position: sticky;
+    top: 0;
+}
+
+.table__content td {
+    background-color: var(--color-slate-980);
+    border-bottom: 1px solid var(--color-slate-800);
+    padding: 1.5rem 1.5rem;
+    font-size: 1.2rem;
+}
+
+.table__content td:first-of-type {
+    border-left: 1px solid var(--color-slate-800);
+}
+
+.table__content td:last-of-type {
+    border-right: 1px solid var(--color-slate-800);
+}
+
+.table__row {
+    color: var(--color-navy-200);
+}
+
+.table__content tr:last-child td {
+    box-shadow: inset 0 -2px 2px -2px #00000050;
+    border: none;
+}
+
+.table__content tr:last-child td:first-of-type {
+    border-bottom-left-radius: 8px;
+
+    border-left: 1px solid var(--color-slate-800);
+}
+
+.table__content tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+    border-right: 1px solid var(--color-slate-800);
+}
+
