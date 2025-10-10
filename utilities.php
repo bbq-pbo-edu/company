@@ -21,17 +21,17 @@ function createEmployeesTable(array $data, array|false $ueberschriften = false, 
     }
 
     foreach ($data as $index => $dataSet) {
-        $_GET['id'] = $_GET['id'] ?? 0;
-        $_GET['fname'] = $_GET['fname'] ?? '';
-        $_GET['lname'] = $_GET['lname'] ?? '';
+        $idToEdit = $GLOBALS['id'];
+        $method = $GLOBALS['method'];
 
-        $id = $dataSet['id'];
+        $dataSetId = $dataSet['id'];
         $fname = $dataSet['fname'];
         $lname = $dataSet['lname'];
 
         $htmlString .= "<tr>";
 
-        $isEntryUpdateHidden = $id == $_GET['id'] && $_GET['process'] == 'update' ? '' : 'hidden';
+        var_dump($idToEdit, $method);
+        $isEntryUpdateHidden = $dataSetId == $idToEdit && $method == 'update' ? '' : 'hidden';
         $isEntryHidden = $isEntryUpdateHidden == 'hidden' ? '' : 'hidden';
 
         $colorStyleTag = "style=\"background-color: " . ($index % 2 == 0 ? $farbe_1 : $farbe_2) . ";\"";
@@ -44,11 +44,30 @@ function createEmployeesTable(array $data, array|false $ueberschriften = false, 
             }
         }
 
-        $htmlString .= "<td $colorStyleTag $isEntryHidden><a href=\"./processDelete.php?id={$id}\">Delete</a></td>";
-        $htmlString .= "<td $colorStyleTag $isEntryHidden><a href=\"./index.php?id={$id}&process=update\">Update</a></td>";
+        $htmlString .= "<td $colorStyleTag $isEntryHidden><a href='http://www.company.patrick.web.bbq/employee/delete/{$dataSetId}'>Delete</a></td>";
+        $htmlString .= "<td $colorStyleTag $isEntryHidden><a href='http://www.company.patrick.web.bbq/employee/update/{$dataSetId}'>Update</a></td>";
         $htmlString .= "</tr>";
 
-        $htmlString .= "<tr $isEntryUpdateHidden><form action='./processUpdate.php' method='POST'><td  $colorStyleTag >{$id}<input type='hidden' name='id' value='{$id}'></td><td $colorStyleTag><input type='text' name='fname' value='{$fname}' required></td><td><input type='text' name='lname' value='{$lname}' required><td $colorStyleTag><input type='submit' value='submit'></td><td $colorStyleTag><input type='submit' formaction='./processCancel.php' value='Cancel'></td></form></tr>";
+        $htmlString .= "<tr $isEntryUpdateHidden>
+                           <form action='./processUpdate.php' method='POST'>
+                               <td  $colorStyleTag >
+                                   {$dataSetId}
+                                   <input type='hidden' name='id' value='{$dataSetId}'>
+                               </td>
+                               <td $colorStyleTag>
+                                   <input type='text' name='fname' value='{$fname}' required>
+                               </td>
+                               <td>
+                                   <input type='text' name='lname' value='{$lname}' required>
+                               </td>
+                               <td $colorStyleTag>
+                                   <input type='submit' value='submit'>
+                               </td>
+                               <td $colorStyleTag>
+                                   <input type='submit' formaction='./processCancel.php' value='Cancel'>
+                               </td>
+                           </form>
+                       </tr>";
     }
 
     $htmlString .= "</table>";
@@ -70,7 +89,7 @@ function createDepartmentTable(array $data, array|false $ueberschriften = false,
         $_GET['name'] = $_GET['name'] ?? '';
 
         $process = $_GET['process'] ?? '';
-        $id = $dataSet['id'];
+        $dataSetId = $dataSet['id'];
         $name = $dataSet['name'];
         $isHiring = $dataSet['is_hiring'];
         $workMode = $dataSet['work_mode'];
@@ -80,13 +99,13 @@ function createDepartmentTable(array $data, array|false $ueberschriften = false,
         $htmlString .= "<tr>";
 
 
-        $isEntryUpdateHidden = $id == $_GET['id'] && $process == 'update' ? '' : 'hidden';
+        $isEntryUpdateHidden = $dataSetId == $id && $method == 'update' ? '' : 'hidden';
         $isEntryHidden = $isEntryUpdateHidden == 'hidden' ? '' : 'hidden';
 
-        $isHiringChecked = $process == 'update' && $isHiring != 0 ? 'checked' : '';
-        $isRemoteChecked = $process == 'update' && $workMode == 'remote' ? 'checked' : '';
-        $isHybridChecked = $process == 'update' && $workMode == 'hybrid' ? 'checked' : '';
-        $isOnsiteChecked = $process == 'update' && $workMode == 'onsite' ? 'checked' : '';
+        $isHiringChecked = $method == 'update' && $isHiring != 0 ? 'checked' : '';
+        $isRemoteChecked = $method == 'update' && $workMode == 'remote' ? 'checked' : '';
+        $isHybridChecked = $method == 'update' && $workMode == 'hybrid' ? 'checked' : '';
+        $isOnsiteChecked = $method == 'update' && $workMode == 'onsite' ? 'checked' : '';
 
         $colorStyleTag = "style=\"background-color: " . ($index % 2 == 0 ? $farbe_1 : $farbe_2) . ";\"";
 
@@ -110,6 +129,7 @@ function displayTable(PDO $dbConnection, string $tableName): string {
     $stmt = $dbConnection->prepare("SELECT * FROM {$tableName}");
     $stmt->execute();
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    var_dump($data);
 
     return $tableName == 'employees' ? createEmployeesTable($data, $data[0]) : createDepartmentTable($data, $data[0]);
 }

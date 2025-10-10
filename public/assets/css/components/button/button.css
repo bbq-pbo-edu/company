@@ -74,6 +74,15 @@ body {
     gap: .25rem;
 }
 
+.button.button--confirm .button__content {
+    padding: .25rem;
+}
+
+.button.button--cancel .button__content {
+    background-color: red;
+    padding: .25rem;
+}
+
 .button__icon {
     height: 24px;
     width: 24px;

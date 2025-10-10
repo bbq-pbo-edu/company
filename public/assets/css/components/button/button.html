@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Button Component Demo</title>
-    <link rel="stylesheet" href="../../tokens/colors.css">
-    <link rel="stylesheet" href="button.css">
+    <link rel="stylesheet" href="./assets/css/tokens/colors.css">
+    <link rel="stylesheet" href="./assets/css/components/button/button.css">
 </head>
 <body>
+<!-- Button with Icon and Text side-by-side -->
 <button class="button button--green">
     <span class="button__content">
         <svg width="24" height="24" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="button__icon" preserveAspectRatio="xMidYMid meet">
@@ -21,6 +22,15 @@
             <circle cx="24" cy="24" r="20" fill="transparent" stroke="#FFF" stroke-width="2"/>
         </svg>
         <span class="button__text">Button Text</span>
+    </span>
+</button>
+
+<!-- Small square-shaped action buttons - color-coded -->
+<button class="button button--confirm">
+    <span class="button__content">
+        <svg width="24" height="24" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="button__icon" preserveAspectRatio="xMidYMid meet">
+            <circle cx="24" cy="24" r="20" fill="transparent" stroke="#FFF" stroke-width="2"/>
+        </svg>
     </span>
 </button>
 </body>

@@ -3,7 +3,6 @@
 require_once "../utilities.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id = $_POST['id'];
     $name = $_POST['name'];
     $isHiring = isset($_POST['is-hiring']) ? 1 : 0;
     $workMode = strtolower($_POST['work-mode']);
@@ -16,6 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bindParam(':workMode', $workMode);
     $stmt->execute();
 
-    header("Location: ./index.php?test=$workMode");
+    header("Location: http://www.company.patrick.web.bbq/emplyee/read");
     exit();
 }
