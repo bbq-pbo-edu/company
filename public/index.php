@@ -34,3 +34,12 @@ else if ($entity === 'department' && $method === 'delete') {
 else if ($entity === 'start') {
     require_once '../public/homepage.html';
 }
+else if (empty($entitity) && empty($method) && empty($id)) {
+    header('Location: /start');
+}
+else if ($entity === '404') {
+    echo '404';
+}
+else {
+    header('Location: /404');
+}
