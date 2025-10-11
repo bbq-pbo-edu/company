@@ -63,6 +63,9 @@ else if ($entity === 'checkbox') {
 else if ($entity === 'radio') {
     require_once './assets/css/components/radiobutton/radiobutton.html';
 }
+else if ($entity === 'tabletest') {
+    require_once '../src/utils/createTable.php';
+}
 else if ($entity === '404') {
     echo '404';
 }
