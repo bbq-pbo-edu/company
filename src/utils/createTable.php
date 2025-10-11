@@ -9,21 +9,25 @@
  * @param int|null $editingRecordId  ID of the record currently being edited (only applies in 'edit' mode).
  * @return string                    HTML string for the complete table.
  */
-function createTable(array $records, bool $withHeader=false, string $mode='view', int|null $editingRecordId=null): string {
-    $htmlString = "<table>";
+function createTable(array $records, string $tableName, bool $withHeader=false, string $mode='view', int|null $editingRecordId=null): string {
+    $htmlString = "<table class='table__content'>";
 
     if ($withHeader) {
         $htmlString .= createHeaderRow($records);
     }
 
+    $htmlString .= "<tbody class='table__body'>";
+
     foreach ($records as $record) {
         if ($mode === 'edit' && $editingRecordId === $record['id']) {
-            $htmlString .= createEditableRow($record);
+            $htmlString .= createEditableRow($record, $tableName);
         }
         else {
-            $htmlString .= createRecordRow($record);
+            $htmlString .= createRecordRow($record, $tableName);
         }
     }
+
+    $htmlString .= "</tbody>";
 
     $htmlString .= "</table>";
     return $htmlString;
@@ -36,12 +40,12 @@ function createTable(array $records, bool $withHeader=false, string $mode='view'
  * @return string         HTML string for the table header row.
  */
 function createHeaderRow(array $records): string {
-    $htmlString = "<tr>";
+    $htmlString = "<tr class='table__header'>";
     foreach ($records[0] as $headerName => $_) {
         $headerName = formatHeaderName($headerName);
-        $htmlString .= "<th>{$headerName}</th>";
+        $htmlString .= "<th class='table-header__entry'>{$headerName}</th>";
     }
-    $htmlString .= "<th>Action</th>";
+    $htmlString .= "<th class='table-header__entry'>Action</th>";
     $htmlString .= "</tr>";
     return $htmlString;
 }
@@ -67,19 +71,23 @@ function formatHeaderName(string $headerName): string {
  * @param array $record  Associative array of fieldName => fieldValue for a single row.
  * @return string        HTML string for the table row.
  */
-function createRecordRow(array $record): string {
-    $htmlString = "<tr>";
+function createRecordRow(array $record, string $tableName): string {
+    $htmlString = "<tr class='table__row'>";
     foreach ($record as $fieldName => $fieldValue) {
         $inputType = determineInputType($fieldName);
         if ($inputType === 'checkbox') {
             $fieldValue = $fieldValue === 1 ? 'Yes' : 'No';
         }
-        $htmlString .= "<td>{$fieldValue}</td>";
+        $htmlString .= "<td class='table__field'>{$fieldValue}</td>";
     }
 
-    $htmlString .= "<td>
-                        <button type='submit' name='edit' value='{$record['id']}'>Edit</button>
-                        <button type='submit' name='delete' value='{$record['id']}'>Delete</button>
+    $htmlString .= "<td class='table__field table--actions'>
+                        <a href='/{$tableName}/edit/{$record['id']}'>
+                            <button class='button button-edit' type='submit' name='edit'>Edit</button>
+                        </a>
+                        <a href='/delete/{$record['id']}'>
+                            <button class='button button-delete' type='submit' name='delete'>Delete</button>
+                        </a>
                     </td>";
 
     $htmlString .= "</tr>";
@@ -92,33 +100,41 @@ function createRecordRow(array $record): string {
  * @param array $record  Associative array of fieldName => fieldValue for a single row.
  * @return string        HTML string for the editable table row.
  */
-function createEditableRow(array $record): string {
-    $htmlString = "<tr>";
+function createEditableRow(array $record, string $tableName): string {
+    $htmlString = "<tr class='table__row row-editable'>";
     foreach ($record as $fieldName => $fieldValue) {
         $inputType = determineInputType($fieldName);
 
         if (empty($inputType)) {
-            $htmlString .= "<td>{$fieldValue}</td>";
+            $htmlString .= "<td class='table__field'>{$fieldValue}</td>";
         }
         else if ($inputType === 'checkbox') {
             $checkedAttribute = $fieldValue == 1 ? 'checked' : '';
-            $htmlString .= "<td>
-                                <input type='{$inputType}' name='$fieldName' value='{$fieldValue}' {$checkedAttribute}>
+            $htmlString .= "<td class='table__field'>
+                                <label class='checkbox__content' for='{$fieldName}'>
+                                    <input type='{$inputType}' id='{$fieldName}' name='$fieldName' value='{$fieldValue}' {$checkedAttribute}>
+                                    <span class='checkbox__checkmark'></span>
+                                </label>
                             </td>";
         }
         else if ($inputType === 'radio') {
             $htmlString .= createRadioGroup($fieldName, $fieldValue);
         }
-        else {
-            $htmlString .= "<td>
-                            <input type='{$inputType}' name='{$fieldName}' value='{$fieldValue}'>
+        else if ($inputType === 'text') {
+            $htmlString .= "<td class='table__field'>
+                            <label class='text-input__content' for='{$fieldName}'>
+                                <input type='{$inputType}' id='{$fieldName}' name='{$fieldName}' value='{$fieldValue}'>
                         </td>";
         }
     }
 
-    $htmlString .= "<td>
-                        <button type='submit' name='save_edit' value='{$record['id']}'>Save</button>
-                        <button type='submit' name='cancel_edit' value='{$record['id']}'>Cancel</button>
+    $htmlString .= "<td class='table__field table--actions'>
+                        <a href='/{$tableName}/update/{$record['id']}'>
+                            <button class='button button--confirm' type='submit' name='save_edit'>Save</button>
+                        </a>
+                        <a href='/{$tableName}/read/{$record['id']}'>
+                            <button class='button button--cancel' type='submit' name='cancel_edit'>Cancel</button>
+                        </a>
                     </td>";
 
     return $htmlString;
@@ -132,14 +148,16 @@ function createEditableRow(array $record): string {
  * @return string                   HTML string for the radio input group.
  */
 function createRadioGroup(string $fieldName, mixed $fieldValue): string {
-    $htmlString = '<td>';
+    $htmlString = '<td class="table__field">';
     $choices = match ($fieldName) {
         'work_mode' => ['remote', 'hybrid', 'onsite']
     };
     foreach ($choices as $choice) {
         $checkedAttribute = $fieldValue === $choice ? 'checked' : '';
-        $htmlString .= "<label for='{$choice}'>{$choice}</label>
-                        <input type='radio' name='{$fieldName}' value='{$choice}' id='{$choice}' $checkedAttribute>";
+        $htmlString .= "<label class='radiobutton__content' for='{$choice}'>{$choice}
+                            <input type='radio' name='{$fieldName}' value='{$choice}' id='{$choice}' $checkedAttribute>
+                            <span class='radiobutton__checkmark'></span>
+                        </label>";
     }
     $htmlString .= "</td>";
     return $htmlString;
@@ -199,4 +217,26 @@ $test2 = [
     ]
 ];
 
-echo createTable($test, withHeader: true, mode: 'edit', editingRecordId: 1);
+echo createTable($test2, 'employee', withHeader: true, mode: 'edit', editingRecordId: 1);
+
+?>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./assets/css/tokens/colors.css">
+    <link rel="stylesheet" href="./assets/css/components/button/button.css">
+    <link rel="stylesheet" href="./assets/css/components/databaseTable/departmentTableOnUpdate.css">
+    <link rel="stylesheet" href="./assets/css/components/text-input/text-input.css">
+    <link rel="stylesheet" href="./assets/css/components/checkbox/checkbox.css">
+    <link rel="stylesheet" href="./assets/css/components/radiobutton/radiobutton.css">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+</html>
