@@ -71,7 +71,7 @@ body {
     /*border-top-right-radius: 8px;*/
 }
 
-.table-row__table-header {
+.table__header {
     color: var(--color-slate-1000);
     background-color: var(--color-navy-200);
     position: sticky;

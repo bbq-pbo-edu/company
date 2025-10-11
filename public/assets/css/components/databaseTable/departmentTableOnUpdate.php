@@ -14,7 +14,7 @@
 <body>
 <div class="table">
     <table class="table__content">
-        <tr class="table-row__table-header">
+        <tr class="table__header">
             <th class="table-header__entry">Name</th>
             <th class="table-header__entry">Is Hiring?</th>
             <th class="table-header__entry">Work Mode</th>
