@@ -1,6 +1,15 @@
 /* PRIMITIVES */
 :root {
+    --color-slate-100: hsl(220, 14%, 10%);
+    --color-slate-200: hsl(220, 14%, 20%);
+    --color-slate-300: hsl(220, 14%, 30%);
+    --color-slate-400: hsl(220, 14%, 40%);
+    --color-slate-500: hsl(220, 14%, 50%);
+    --color-slate-600: hsl(220, 14%, 60%);
+    --color-slate-700: hsl(220, 14%, 70%);
+    --color-slate-750: hsl(220, 14%, 75%);
     --color-slate-800: hsl(220, 14%, 80%);
+    --color-slate-850: hsl(220, 14%, 85%);
     --color-slate-900: #f3f4f6;
     --color-slate-950: #FBFBFB;
     --color-slate-1000: #FFFFFF;

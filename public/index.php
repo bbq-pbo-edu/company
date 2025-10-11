@@ -57,6 +57,12 @@ else if ($entity === 'table') {
 else if ($entity === 'button') {
     require_once './assets/css/components/button/button.html';
 }
+else if ($entity === 'checkbox') {
+    require_once './assets/css/components/checkbox/checkbox.html';
+}
+else if ($entity === 'radio') {
+    require_once './assets/css/components/radiobutton/radiobutton.html';
+}
 else if ($entity === '404') {
     echo '404';
 }
