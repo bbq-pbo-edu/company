@@ -10,3 +10,32 @@ function createDBConnection(string $host=DB_HOST, string $user=DB_USER, $passwor
     }
 }
 
+///**
+// * @return array[]
+// */
+//function findAll(): array
+//{
+//// TODO
+//}
+//
+//function remove(int $id): bool
+//{
+//// TODO
+//}
+//
+//function create(): bool
+//{
+//// TODO
+//}
+//
+//
+//function findById(int $id): array
+//{
+//// TODO
+//}
+//
+//function update(??)???
+//{
+//    //TODO
+//}
+
