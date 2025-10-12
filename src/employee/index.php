@@ -42,7 +42,7 @@ $conn = createDBConnection();
         <p><a href="http://www.company.patrick.web.bbq/start">Go back</a></p>
         <div class="app-container">
             <div class="create-container">
-                <form id="input-form" action="<?= './processCreate.php' ?>" ) method="POST">
+                <form id="input-form" action="<?= './create.php' ?>" ) method="POST">
                     <div class="form-group">
                         <label for="fname">First Name</label>
                         <input type="text" id="fname" name="fname" required>

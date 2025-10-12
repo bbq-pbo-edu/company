@@ -1,0 +1,5 @@
+<svg viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg' class='button__icon' preserveAspectRatio='xMidYMid meet'>
+    <circle cx='24' cy='24' r='20' fill='transparent' stroke='#FFF' stroke-width='2'>
+    </circle>
+    <path stroke="#FFF" stroke-width="20px" d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/>
+</svg>
