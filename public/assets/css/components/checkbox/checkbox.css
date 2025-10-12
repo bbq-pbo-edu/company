@@ -81,5 +81,4 @@
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-    animation: checkmark-grow .01s ease-in-out;
 }
