@@ -75,18 +75,38 @@ function createRecordRow(array $record, string $tableName): string {
     $htmlString = "<tr class='table__row'>";
     foreach ($record as $fieldName => $fieldValue) {
         $inputType = determineInputType($fieldName);
+
+        if (str_contains($fieldName, 'name')) {
+            $fieldValue = "<div class='field__value--name'>{$fieldValue}</div>";
+        }
+
         if ($inputType === 'checkbox') {
-            $fieldValue = $fieldValue === 1 ? 'Yes' : 'No';
+            $fieldValue = $fieldValue === 1 ? "<div class='field__value--bool true'><span class='field__value--bool true icon'><svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 0 24 24' width='24'><path d='M0 0h24v24H0z' fill='none'/><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/></svg></span><span class='field__value--bool true text'>Yes</span></div>" : "<div class='field__value--bool false'><span class='field__value--bool false icon'><svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 0 24 24' width='24'><path d='M0 0h24v24H0z' fill='none'/><path d='M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z'/></svg></span><span class='field__value--bool false text'>No</span></div>";
+        }
+
+        if ($fieldValue === 'remote') {
+            $fieldValue = "<div class='field__value--work-mode remote'><span class='field__value--work-mode remote icon'><svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px'><path d='M400-510ZM80-160v-480l320-240 270 201q-28 1-54 6t-51 15L400-780 160-600v360h224q9 22 21.5 42t26.5 38H80Zm416-16q-35-38-55.5-85.5T420-360q0-109 76-184.5T680-620q109 0 184.5 75.5T940-360q0 51-19 98.5T865-177l-43-43q29-29 43.5-65t14.5-75q0-84-58-142t-142-58q-83 0-141.5 58T480-360q0 39 15.5 75.5T539-219l-43 43Zm71-71q-22-23-34.5-52T520-360q0-67 47-113.5T680-520q67 0 113.5 46.5T840-360q0 31-11.5 60T794-248l-43-42q14-14 21.5-32t7.5-38q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 20 8 38t22 32l-43 43Zm83 127v-200q-9-8-14.5-18.5T630-360q0-21 15-35.5t35-14.5q21 0 35.5 14.5T730-360q0 11-4.5 22T710-320v200h-60Z'/></svg></span><span class='field__value--work-mode remote text'>remote</span></div>";
+        }
+        if ($fieldValue === 'hybrid') {
+            $fieldValue = "<div class='field__value--work-mode hybrid'><span class='field__value--work-mode hybrid icon'><svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px'><path d='M680-600h80v-80h-80v80Zm0 160h80v-80h-80v80Zm0 160h80v-80h-80v80Zm0 160v-80h160v-560H480v56l-80-58v-78h520v720H680Zm-640 0v-400l280-200 280 200v400H360v-200h-80v200H40Zm80-80h80v-200h240v200h80v-280L320-622 120-480v280Zm560-360ZM440-200v-200H200v200-200h240v200Z'/></svg></span><span class='field__value--work-mode hybrid text'>hybrid</span></div>";
+        }
+        if ($fieldValue === 'onsite') {
+            $fieldValue = "<div class='field__value--work-mode onsite'><span class='field__value--work-mode onsite icon'><svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px'><path d='M120-120v-560h160v-160h400v320h160v400H520v-160h-80v160H120Zm80-80h80v-80h-80v80Zm0-160h80v-80h-80v80Zm0-160h80v-80h-80v80Zm160 160h80v-80h-80v80Zm0-160h80v-80h-80v80Zm0-160h80v-80h-80v80Zm160 320h80v-80h-80v80Zm0-160h80v-80h-80v80Zm0-160h80v-80h-80v80Zm160 480h80v-80h-80v80Zm0-160h80v-80h-80v80Z'/></svg></span><span class='field__value--work-mode onsite text'>onsite</span></div>";
+        }
+
+        if ($fieldName === 'created_at' || $fieldName === 'last_updated') {
+            $fieldValue = str_replace(' ', '<br>', $fieldValue);
+            $fieldValue = "<span class='field__value--timestamp'>{$fieldValue}</span>";
         }
         $htmlString .= "<td class='table__field'>{$fieldValue}</td>";
     }
 
     $htmlString .= "<td class='table__field table--actions'>
                         <a href='/{$tableName}/edit/{$record['id']}'>
-                            <button class='button button-edit' type='submit' name='edit'>Edit</button>
+                            <button class='button button-edit' type='submit'>Edit</button>
                         </a>
-                        <a href='/delete/{$record['id']}'>
-                            <button class='button button-delete' type='submit' name='delete'>Delete</button>
+                        <a href='/{$tableName}/delete/{$record['id']}'>
+                            <button class='button button-delete' type='submit'>Delete</button>
                         </a>
                     </td>";
 
@@ -101,9 +121,15 @@ function createRecordRow(array $record, string $tableName): string {
  * @return string        HTML string for the editable table row.
  */
 function createEditableRow(array $record, string $tableName): string {
-    $htmlString = "<tr class='table__row row-editable'>";
+    $htmlString = "<form method='POST' action='/{$tableName}/update/{$record['id']}'>";
+    $htmlString .= "<tr class='table__row row-editable'>";
+    $autofocus = 'autofocus';
     foreach ($record as $fieldName => $fieldValue) {
         $inputType = determineInputType($fieldName);
+
+        if ($fieldName === 'created_at' || $fieldName === 'last_updated') {
+            $fieldValue = str_replace(' ', '<br>', $fieldValue);
+        }
 
         if (empty($inputType)) {
             $htmlString .= "<td class='table__field'>{$fieldValue}</td>";
@@ -112,7 +138,8 @@ function createEditableRow(array $record, string $tableName): string {
             $checkedAttribute = $fieldValue == 1 ? 'checked' : '';
             $htmlString .= "<td class='table__field'>
                                 <label class='checkbox__content' for='{$fieldName}'>
-                                    <input type='{$inputType}' id='{$fieldName}' name='$fieldName' value='{$fieldValue}' {$checkedAttribute}>
+                                    <input type='hidden' name='{$fieldName}' value='0'>
+                                    <input type='{$inputType}' id='{$fieldName}' name='$fieldName' value='1' {$checkedAttribute}>
                                     <span class='checkbox__checkmark'></span>
                                 </label>
                             </td>";
@@ -123,20 +150,23 @@ function createEditableRow(array $record, string $tableName): string {
         else if ($inputType === 'text') {
             $htmlString .= "<td class='table__field'>
                             <label class='text-input__content' for='{$fieldName}'>
-                                <input type='{$inputType}' id='{$fieldName}' name='{$fieldName}' value='{$fieldValue}'>
+                                <input type='{$inputType}' id='{$fieldName}' name='{$fieldName}' value='{$fieldValue}' {$autofocus}>
+                            </label>
                         </td>";
+            $autofocus = '';
         }
     }
 
     $htmlString .= "<td class='table__field table--actions'>
-                        <a href='/{$tableName}/update/{$record['id']}'>
-                            <button class='button button--confirm' type='submit' name='save_edit'>Save</button>
-                        </a>
+                        <button class='button button--confirm' type='submit'>Save</button>
+                        
                         <a href='/{$tableName}/read/{$record['id']}'>
-                            <button class='button button--cancel' type='submit' name='cancel_edit'>Cancel</button>
+                            <button class='button button--cancel' type='button'>Cancel</button>
                         </a>
                     </td>";
 
+    $htmlString .= "</tr>";
+    $htmlString .= "</form>";
     return $htmlString;
 }
 
@@ -178,65 +208,65 @@ function determineInputType(string $fieldName): string {
         default => ''
     };
 }
+//
+//$test = [
+//    0 => [
+//        "id" => 1,
+//        "name" => "Inhumane Resources",
+//        "is_hiring" => 1,
+//        "work_mode" => "onsite",
+//        "created_at" => "2025-10-08 21:50:24",
+//        "last_updated" => "2025-10-08 21:50:24"
+//    ],
+//
+//    1 => [
+//        "id" => 2,
+//        "name" => "Support",
+//        "is_hiring" => 0,
+//        "work_mode" => "remote",
+//        "created_at" => "2025-10-08 21:50:24",
+//        "last_updated" => "2025-10-08 21:50:24"
+//    ]
+//];
+//
+//$test2 = [
+//    0 => [
+//        "id" => 1,
+//        "first_name" => "John",
+//        "last_name" => "Doe",
+//        "created_at" => "2025-10-08 21:50:24",
+//        "last_updated" => "2025-10-08 21:50:24"
+//    ],
+//
+//    1 => [
+//        "id" => 2,
+//        "first_name" => "Jane",
+//        "last_name" => "Doe",
+//        "created_at" => "2025-10-08 21:50:24",
+//        "last_updated" => "2025-10-08 21:50:24"
+//    ]
+//];
+//
+//echo createTable($test2, 'employee', withHeader: true, mode: 'edit', editingRecordId: 1);
+//
+//?>
 
-$test = [
-    0 => [
-        "id" => 1,
-        "name" => "Inhumane Resources",
-        "is_hiring" => 1,
-        "work_mode" => "onsite",
-        "created_at" => "2025-10-08 21:50:24",
-        "last_updated" => "2025-10-08 21:50:24"
-    ],
-
-    1 => [
-        "id" => 2,
-        "name" => "Support",
-        "is_hiring" => 0,
-        "work_mode" => "remote",
-        "created_at" => "2025-10-08 21:50:24",
-        "last_updated" => "2025-10-08 21:50:24"
-    ]
-];
-
-$test2 = [
-    0 => [
-        "id" => 1,
-        "first_name" => "John",
-        "last_name" => "Doe",
-        "created_at" => "2025-10-08 21:50:24",
-        "last_updated" => "2025-10-08 21:50:24"
-    ],
-
-    1 => [
-        "id" => 2,
-        "first_name" => "Jane",
-        "last_name" => "Doe",
-        "created_at" => "2025-10-08 21:50:24",
-        "last_updated" => "2025-10-08 21:50:24"
-    ]
-];
-
-echo createTable($test2, 'employee', withHeader: true, mode: 'edit', editingRecordId: 1);
-
-?>
-
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./assets/css/tokens/colors.css">
-    <link rel="stylesheet" href="./assets/css/components/button/button.css">
-    <link rel="stylesheet" href="./assets/css/components/databaseTable/departmentTableOnUpdate.css">
-    <link rel="stylesheet" href="./assets/css/components/text-input/text-input.css">
-    <link rel="stylesheet" href="./assets/css/components/checkbox/checkbox.css">
-    <link rel="stylesheet" href="./assets/css/components/radiobutton/radiobutton.css">
-    <title>Document</title>
-</head>
-<body>
-
-</body>
-</html>
+<!--<!doctype html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport"-->
+<!--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+<!--    <link rel="stylesheet" href="./assets/css/tokens/colors.css">-->
+<!--    <link rel="stylesheet" href="./assets/css/components/button/button.css">-->
+<!--    <link rel="stylesheet" href="./assets/css/components/databaseTable/departmentTableOnUpdate.css">-->
+<!--    <link rel="stylesheet" href="./assets/css/components/text-input/text-input.css">-->
+<!--    <link rel="stylesheet" href="./assets/css/components/checkbox/checkbox.css">-->
+<!--    <link rel="stylesheet" href="./assets/css/components/radiobutton/radiobutton.css">-->
+<!--    <title>Document</title>-->
+<!--</head>-->
+<!--<body>-->
+<!---->
+<!--</body>-->
+<!--</html>-->

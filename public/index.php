@@ -1,5 +1,7 @@
 <?php
 
+require_once '../config/config.php';
+
 /**
  * Example:
  *
@@ -20,16 +22,19 @@ $id = $request[2] ?? null;
 
 // === DEPARTMENT ===
 if ($entity === 'department' && $method === 'create') {
-    require_once '../src/department/processCreate.php';
+    require_once '../src/department/create.php';
 }
 else if ($entity === 'department' && $method === 'read') {
-    require_once '../src/department/index.php';
+    require_once '../src/department/read.php';
 }
 else if ($entity === 'department' && $method === 'update') {
-    require_once '../src/department/processUpdate.php';
+    require_once '../src/department/update.php';
 }
 else if ($entity === 'department' && $method === 'delete') {
-    require_once '../src/department/processDelete.php';
+    require_once '../src/department/delete.php';
+}
+else if ($entity === 'department' && $method === 'edit') {
+    require_once '../src/department/edit.php';
 }
 
 // === EMPLOYEE ===

@@ -49,7 +49,7 @@ function createEmployeesTable(array $data, array|false $ueberschriften = false, 
         $htmlString .= "</tr>";
 
         $htmlString .= "<tr $isEntryUpdateHidden>
-                           <form action='./processUpdate.php' method='POST'>
+                           <form action='./update.php' method='POST'>
                                <td  $colorStyleTag >
                                    {$dataSetId}
                                    <input type='hidden' name='id' value='{$dataSetId}'>
@@ -113,11 +113,11 @@ function createDepartmentTable(array $data, array|false $ueberschriften = false,
             $htmlString .= "<td $colorStyleTag $isEntryHidden>$value</td>";
         }
 
-        $htmlString .= "<td $colorStyleTag $isEntryHidden><a href=\"./processDelete.php?id={$id}\">Delete</a></td>";
+        $htmlString .= "<td $colorStyleTag $isEntryHidden><a href=\"./delete.php?id={$id}\">Delete</a></td>";
         $htmlString .= "<td $colorStyleTag $isEntryHidden><a href=\"./index.php?id={$id}&process=update\">Update</a></td>";
         $htmlString .= "</tr>";
 
-        $htmlString .= "<tr $isEntryUpdateHidden><form action='./processUpdate.php' method='POST'><td  $colorStyleTag>{$id}<input type='hidden' name='id' value='{$id}'></td><td $colorStyleTag><input type='text' name='name' value='{$name}' required></td><td $colorStyleTag><input type='checkbox' id='is-hiring' name='is-hiring' $isHiringChecked><label for='is-hiring'>Is Hiring?</label></td><td><input type='radio' id='remote' name='work-mode' value='remote' $isRemoteChecked><label for='remote'>Remote</label><input type='radio' id='hybrid' name='work-mode' value='hybrid' $isHybridChecked><label for='hybrid'>Hybrid</label><input type='radio' id='onsite' name='work-mode' value='onsite' $isOnsiteChecked><label for='onsite'>Onsite</label></td><td $colorStyleTag>$createdAt</td><td $colorStyleTag>$lastUpdated</td><td $colorStyleTag><input type='submit' value='submit'></td><td $colorStyleTag><input type='submit' formaction='./processCancel.php' value='Cancel'></td></form></tr>";
+        $htmlString .= "<tr $isEntryUpdateHidden><form action='./update.php' method='POST'><td  $colorStyleTag>{$id}<input type='hidden' name='id' value='{$id}'></td><td $colorStyleTag><input type='text' name='name' value='{$name}' required></td><td $colorStyleTag><input type='checkbox' id='is-hiring' name='is-hiring' $isHiringChecked><label for='is-hiring'>Is Hiring?</label></td><td><input type='radio' id='remote' name='work-mode' value='remote' $isRemoteChecked><label for='remote'>Remote</label><input type='radio' id='hybrid' name='work-mode' value='hybrid' $isHybridChecked><label for='hybrid'>Hybrid</label><input type='radio' id='onsite' name='work-mode' value='onsite' $isOnsiteChecked><label for='onsite'>Onsite</label></td><td $colorStyleTag>$createdAt</td><td $colorStyleTag>$lastUpdated</td><td $colorStyleTag><input type='submit' value='submit'></td><td $colorStyleTag><input type='submit' formaction='./processCancel.php' value='Cancel'></td></form></tr>";
     }
 
     $htmlString .= "</table>";
