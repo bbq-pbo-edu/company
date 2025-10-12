@@ -8,10 +8,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../../../tokens/colors.css">
-    <link rel="stylesheet" href="../../card/card.css">
-    <link rel="stylesheet" href="../../button/button.css">
-    <link rel="stylesheet" href="./modal--add-employee.css">
+    <link rel="stylesheet" href="../../tokens/colors.css">
+    <link rel="stylesheet" href="../card/card.css">
+    <link rel="stylesheet" href="../button/button.css">
+    <link rel="stylesheet" href="../../../../index.php">
     <title>Add Employee Modal Demo</title>
 </head>
 <body>
