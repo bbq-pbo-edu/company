@@ -78,8 +78,8 @@ body {
 
 .app__body {
     display: flex;
-    height: 100%;
-    padding: 2rem;
+    height: 78vh;
+    /*padding: 2rem;*/
 }
 
 .app__table-body-container {
