@@ -8,7 +8,7 @@ $conn = createDBConnection();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     update($conn, $entity, $id, $_POST);
 
-    header("Location: /{$entity}/read/{$id}");
+    header("Location: " . DOMAIN_URL . "/{$entity}/read/{$id}");
     exit();
 }
 

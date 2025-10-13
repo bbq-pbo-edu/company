@@ -21,7 +21,10 @@ $method = $request[1] ?? null;
 $id = $request[2] ?? null;
 
 // === DEPARTMENT ===
-if ($entity === 'department' && $method === 'create') {
+if ($entity === 'department' && $method === 'read' && !empty($id)) {
+    require_once '../src/department/read_single_record.php';
+}
+else if ($entity === 'department' && $method === 'create') {
     require_once '../src/department/create.php';
 }
 else if ($entity === 'department' && $method === 'read') {
@@ -33,11 +36,17 @@ else if ($entity === 'department' && $method === 'update') {
 else if ($entity === 'department' && $method === 'delete') {
     require_once '../src/department/delete.php';
 }
+else if ($entity === 'department' && $method === 'edit' && !empty($id)) {
+    require_once '../src/department/edit_single_record.php';
+}
 else if ($entity === 'department' && $method === 'edit') {
     require_once '../src/department/edit.php';
 }
 
 // === EMPLOYEE ===
+else if ($entity === 'employee' && $method === 'read' && !empty($id)) {
+    require_once '../src/employee/read_single_record.php';
+}
 else if ($entity === 'employee' && $method === 'create') {
     require_once '../src/employee/create.php';
 }
@@ -49,6 +58,9 @@ else if ($entity === 'employee' && $method === 'update') {
 }
 else if ($entity === 'employee' && $method === 'delete') {
     require_once '../src/employee/delete.php';
+}
+else if ($entity === 'employee' && $method === 'edit' && !empty($id)) {
+    require_once '../src/employee/edit_single_record.php';
 }
 else if ($entity === 'employee' && $method === 'edit') {
     require_once '../src/employee/edit.php';
@@ -64,6 +76,7 @@ else if ($entity === 'start') {
 }
 
 else if ($entity === '404') {
+    http_response_code(404);
     echo '404';
 }
 else {

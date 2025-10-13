@@ -23,11 +23,10 @@ function findAll(PDO $conn, string $tableName): array
 function remove(PDO $conn, string $tableName, int $id): bool
 {
     $stmt = $conn->prepare("DELETE FROM {$tableName} WHERE id = ?");
-    $stmt->execute([$id]);
-    return true;
+    return $stmt->execute([$id]);
 }
 
-function create($conn, $tableName, array $postData): bool
+function create(PDO $conn, string $tableName, array $postData): bool
 {
     $columnsArray = array_keys($postData);
     $columnsFormatted = implode(', ', $columnsArray);
@@ -39,15 +38,15 @@ function create($conn, $tableName, array $postData): bool
     $sql = "INSERT INTO {$tableName} ($columnsFormatted) VALUES ({$columnPlaceHolders})";
 
     $stmt = $conn->prepare($sql);
-    $stmt->execute($valuesArray);
-
-    return true;
+    return $stmt->execute($valuesArray);
 }
 
-//function findById(int $id): array
-//{
-//// TODO
-//}
+function findById(PDO $conn, string $tableName, int $id): array
+{
+    $stmt = $conn->prepare("SELECT * FROM {$tableName} WHERE id = ?");
+    $stmt->execute([$id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
 function update(PDO $conn, string $tableName, int $id, array $postData): bool {
     $columns = array_keys($postData);
@@ -59,3 +58,8 @@ function update(PDO $conn, string $tableName, int $id, array $postData): bool {
     return true;
 }
 
+function findLastRecord(PDO $conn, string $tableName): array {
+    $stmt = $conn->prepare("SELECT * FROM {$tableName} ORDER BY id DESC LIMIT 1");
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

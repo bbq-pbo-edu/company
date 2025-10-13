@@ -9,7 +9,7 @@
  * @param int|null $editingRecordId  ID of the record currently being edited (only applies in 'edit' mode).
  * @return string                    HTML string for the complete table.
  */
-function createTable(array $records, string $tableName, bool $withHeader=false, string $mode='view', int|null $editingRecordId=null): string {
+function createTable(array $records, string $tableName, bool $withHeader=false, bool $editable=false, string $mode='read', int|null $editingRecordId=null): string {
     $htmlString = "<table class='table__content'>";
 
     if ($withHeader) {
@@ -20,10 +20,10 @@ function createTable(array $records, string $tableName, bool $withHeader=false, 
 
     foreach ($records as $record) {
         if ($mode === 'edit' && $editingRecordId === $record['id']) {
-            $htmlString .= createEditableRow($record, $tableName);
+            $htmlString .= createEditModeRow($record, $tableName);
         }
         else {
-            $htmlString .= createRecordRow($record, $tableName);
+            $htmlString .= createRecordRow($record, $tableName, $editable);
         }
     }
 
@@ -71,7 +71,7 @@ function formatHeaderName(string $headerName): string {
  * @param array $record  Associative array of fieldName => fieldValue for a single row.
  * @return string        HTML string for the table row.
  */
-function createRecordRow(array $record, string $tableName): string {
+function createRecordRow(array $record, string $tableName, bool $editable): string {
     $htmlString = "<tr class='table__row'>";
     foreach ($record as $fieldName => $fieldValue) {
         $inputType = determineInputType($fieldName);
@@ -101,14 +101,23 @@ function createRecordRow(array $record, string $tableName): string {
         $htmlString .= "<td class='table__field'>{$fieldValue}</td>";
     }
 
-    $htmlString .= "<td class='table__field table--actions'>
-                        <a href='/{$tableName}/edit/{$record['id']}'>
-                            <button class='button button-edit' type='submit'>Edit</button>
-                        </a>
-                        <a href='/{$tableName}/delete/{$record['id']}'>
-                            <button class='button button-delete' type='submit'>Delete</button>
-                        </a>
-                    </td>";
+    if ($editable) {
+        $htmlString .= "<td class='table__field table--actions'>
+                            <a href='/{$tableName}/edit/{$record['id']}'>
+                                <button class='button button-edit' type='submit'>Edit</button>
+                            </a>
+                            <a href='/{$tableName}/delete/{$record['id']}'>
+                                <button class='button button-delete' type='submit'>Delete</button>
+                            </a>
+                        </td>";
+    }
+    else {
+        $htmlString .= "<td class='table__field table--actions'>
+                            <a href='/{$tableName}/read/{$record['id']}'>
+                                <button class='button button-view-details' type='submit'>Details</button>
+                            </a>
+                        </td>";
+    }
 
     $htmlString .= "</tr>";
     return $htmlString;
@@ -120,7 +129,7 @@ function createRecordRow(array $record, string $tableName): string {
  * @param array $record  Associative array of fieldName => fieldValue for a single row.
  * @return string        HTML string for the editable table row.
  */
-function createEditableRow(array $record, string $tableName): string {
+function createEditModeRow(array $record, string $tableName): string {
     $htmlString = "<form method='POST' action='/{$tableName}/update/{$record['id']}'>";
     $htmlString .= "<tr class='table__row row-editable'>";
     $autofocus = 'autofocus';

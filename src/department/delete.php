@@ -6,5 +6,5 @@ require_once '../src/utils/createTable.php';
 $conn = createDBConnection();
 $wasRemoved = remove($conn, $entity,  $id);
 
-header("Location: /department/read");
+header('Location: ' . DOMAIN_URL . '/department/read');
 exit();

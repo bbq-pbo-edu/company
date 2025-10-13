@@ -8,6 +8,8 @@ $conn = createDBConnection();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     create($conn, $entity, $_POST);
 
-    header('Location: /employee/read');
+    $lastRecord = findLastRecord($conn, $entity);
+
+    header('Location: ' . DOMAIN_URL . '/employee/read/' . $lastRecord[0]['id']);
     exit();
 }
