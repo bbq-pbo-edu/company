@@ -62,21 +62,7 @@ else if (empty($entity)) {
 else if ($entity === 'start') {
     require_once '../view/homepage.html';
 }
-else if ($entity === 'table') {
-    require_once './assets/css/components/databaseTable/departmentTableOnUpdate.php';
-}
-else if ($entity === 'button') {
-    require_once './assets/css/components/button/button.html';
-}
-else if ($entity === 'checkbox') {
-    require_once './assets/css/components/checkbox/checkbox.html';
-}
-else if ($entity === 'radio') {
-    require_once './assets/css/components/radiobutton/radiobutton.html';
-}
-else if ($entity === 'tabletest') {
-    require_once '../src/utils/createTable.php';
-}
+
 else if ($entity === '404') {
     echo '404';
 }
