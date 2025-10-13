@@ -60,14 +60,26 @@
         <div class="app__content">
             <!-- App Header Section -->
             <header class="app__header">
-                <div class="app__icon">
-                    <svg class="app__icon_content" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
-                        <path d="M12 7V3H2v18h20V7zM6 19H4v-2h2zm0-4H4v-2h2zm0-4H4V9h2zm0-4H4V5h2zm4 12H8v-2h2zm0-4H8v-2h2zm0-4H8V9h2zm0-4H8V5h2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8zm-2-8h-2v2h2zm0 4h-2v2h2z" fill="#FFF" stroke="transparent" stroke-width="0"></path>
-                    </svg>
-                </div>
-                <div class="app__title_container">
-                    <h1 class="app__title">Departments View</h1>
-                    <p class="app__subtitle">View and edit department data below.</p>
+                <a href="/start">
+                    <div class="app__go-back">
+                        <span class="app__go-back-arrow">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                                <path d="m480-320 56-56-64-64h168v-80H472l64-64-56-56-160 160 160 160Zm0 240q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/>
+                            </svg>
+                        </span>
+                        <span class="app_go-back-text">Go back</span>
+                    </div>
+                </a>
+                <div class="app__title-group">
+                    <div class="app__icon">
+                        <svg class="app__icon_content" focusable="false" aria-hidden="true" viewBox="0 0 24 24">
+                            <path d="M12 7V3H2v18h20V7zM6 19H4v-2h2zm0-4H4v-2h2zm0-4H4V9h2zm0-4H4V5h2zm4 12H8v-2h2zm0-4H8v-2h2zm0-4H8V9h2zm0-4H8V5h2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8zm-2-8h-2v2h2zm0 4h-2v2h2z" fill="#FFF" stroke="transparent" stroke-width="0"></path>
+                        </svg>
+                    </div>
+                    <div class="app__title_container">
+                        <h1 class="app__title">Departments</h1>
+                        <p class="app__subtitle">View and manage department data.</p>
+                    </div>
                 </div>
             </header>
             <div class="app__body">

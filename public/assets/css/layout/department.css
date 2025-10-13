@@ -18,9 +18,33 @@ body {
     color: var(--color-navy-200);
     font-family: sans-serif;
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
     padding-left: 2rem;
-    padding-top: 2rem;
+    padding-top: .5rem;
+}
+
+.app__go-back {
+    display: flex;
+    gap: .5rem;
+    color: var(--color-slate-700);
+
+}
+
+.app__go-back svg {
+    fill: var(--color-slate-700);
+    width: 20px;
+    height: 20px;
+}
+
+.app__header a {
+    text-decoration: none;
+    width: fit-content;
+}
+
+.app__title-group {
+    display: flex;
+    gap: 1rem;
 }
 
 .app__icon {
@@ -49,6 +73,7 @@ body {
 
 .app__subtitle {
     font-size: 1.2rem;
+    color: var(--color-slate-700);
 }
 
 .app__body {
@@ -61,7 +86,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: .5rem;
+    gap: .8rem;
     padding: 1rem 5rem 2rem 5rem;
 }
 

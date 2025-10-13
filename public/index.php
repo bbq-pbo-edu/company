@@ -39,22 +39,28 @@ else if ($entity === 'department' && $method === 'edit') {
 
 // === EMPLOYEE ===
 else if ($entity === 'employee' && $method === 'create') {
-    require_once '../src/employee/processCreate.php';
+    require_once '../src/employee/create.php';
 }
 else if ($entity === 'employee' && $method === 'read') {
-    require_once '../src/employee/index.php';
+    require_once '../src/employee/read.php';
 }
 else if ($entity === 'employee' && $method === 'update') {
-    var_dump($id);
-    require_once '../src/employee/index.php';
+    require_once '../src/employee/update.php';
 }
 else if ($entity === 'employee' && $method === 'delete') {
-    require_once '../src/employee/processDelete.php';
+    require_once '../src/employee/delete.php';
+}
+else if ($entity === 'employee' && $method === 'edit') {
+    require_once '../src/employee/edit.php';
 }
 
 // === MISC ===
+else if (empty($entity)) {
+    header('Location: /start');
+    exit();
+}
 else if ($entity === 'start') {
-    require_once '../public/homepage.html';
+    require_once '../view/homepage.html';
 }
 else if ($entity === 'table') {
     require_once './assets/css/components/databaseTable/departmentTableOnUpdate.php';
@@ -76,4 +82,5 @@ else if ($entity === '404') {
 }
 else {
     header('Location: /404');
+    exit();
 }
