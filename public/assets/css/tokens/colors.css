@@ -1,15 +1,15 @@
 /* PRIMITIVES */
 :root {
-    --color-slate-100: hsl(220, 14%, 10%);
-    --color-slate-200: hsl(220, 14%, 20%);
-    --color-slate-300: hsl(220, 14%, 30%);
-    --color-slate-400: hsl(220, 14%, 40%);
-    --color-slate-500: hsl(220, 14%, 50%);
-    --color-slate-600: hsl(220, 14%, 60%);
-    --color-slate-700: hsl(220, 14%, 70%);
-    --color-slate-750: hsl(220, 14%, 75%);
-    --color-slate-800: hsl(220, 14%, 80%);
-    --color-slate-850: hsl(220, 14%, 85%);
+    --color-slate-100: #16181d;
+    --color-slate-200: #2c313a;
+    --color-slate-300: #424957;
+    --color-slate-400: #586174;
+    --color-slate-500: #6e7a91;
+    --color-slate-600: #8b94a7;
+    --color-slate-700: #a8afbd;
+    --color-slate-750: #b6bcc8;
+    --color-slate-800: #c5cad3;
+    --color-slate-850: #d3d7de;
     --color-slate-900: #f3f4f6;
     --color-slate-950: #FBFBFB;
     --color-slate-1000: #FFFFFF;
@@ -20,6 +20,7 @@
     --color-navy-250: #374151;
     --color-navy-300: #4B5563;
 
+    --color-mint-300: #1d8660;
     --color-mint-400: #27b07d;
     --color-mint-500: #34D399;
     --color-mint-600: #60dcaf;
